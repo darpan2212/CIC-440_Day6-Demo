@@ -4,25 +4,29 @@ PRESENT=1;
 PART_TIME=2;
 WAGE_PER_HOUR=20;
 
-isPresent=$((RANDOM%3));
+totalWage=0;
 
-case $isPresent in
-	$PRESENT)
-		echo "Employee is present";
-		workingHour=8;
-		;;
+for ((day=0;day<20;day++))
+do
+	isPresent=$((RANDOM%3));
 
-	$PART_TIME)
-		echo "Employee is working part time";
-		workingHour=4;
-		;;
+	case $isPresent in
+		$PRESENT)
+			workingHour=8;
+			;;
 
-	*)
-		echo "Employee is absent";
-		workingHour=0;
-		;;
-esac;
+		$PART_TIME)
+			workingHour=4;
+			;;
 
-dailyWage=$(($workingHour * $WAGE_PER_HOUR));
+		*)
+			workingHour=0;
+			;;
+	esac;
 
-echo "Employee's daily wage : $"$dailyWage " USD"
+	dailyWage=$(($workingHour * $WAGE_PER_HOUR));
+
+	totalWage=$(($totalWage + $dailyWage));
+done
+
+echo "Employee's monthly wage : $"$totalWage" USD";
